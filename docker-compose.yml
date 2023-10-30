@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  book-management-service:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - DB_URI=mongodb://mongodb:27017/book
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-book
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./db/dbdata:/data/db
+
+volumes:
+  dbdata:
